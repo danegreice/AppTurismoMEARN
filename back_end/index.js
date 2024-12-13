@@ -1,11 +1,15 @@
-const http = require('http');
+var express = require('express');
+var router = express.Router();
+var db = require('./db')
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello, World!\n');
-});
+/* GET index. */ 
+router.get('/', async (req, res, next) => {
+  try {
+    const places = await db.findAll("places");
+    res.render('index', { title: 'Places', places });
+  } catch (err) {
+    next(err);
+  }
+})
 
-server.listen(3000, () => {
-  console.log('Servidor rodando em http://localhost:3000/');
-});
+module.exports = router;
