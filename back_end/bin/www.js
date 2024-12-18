@@ -7,10 +7,16 @@
 var app = require('../App');
 var debug = require('debug')('appturismo:server');
 var http = require('http');
+const mongoose = require("mongoose");
+
 require("dotenv").config();
 const MONGO_URI = process.env.MONGO_URI;
 const MONGO_HOST = process.env.MONGO_HOST;
 const MONGO_DATABASE = process.env.MONGO_DATABASE;
+
+mongoose.connect("mongodb+srv://teste:teste@cluster0.ltwob.mongodb.net/test?retryWrites=true&w=majority&appName=Cluster0", { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('Conectado ao MongoDB com sucesso!'))
+  .catch((error) => console.error('Erro ao conectar ao MongoDB:', error));
 
 /**
  * Get port from environment and store in Express.
